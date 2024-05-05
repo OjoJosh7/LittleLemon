@@ -81,8 +81,8 @@ DATABASES = {
    'default': {
       'ENGINE': 'django.db.backends.mysql',
       'NAME': 'LittleLemon',
-      'USER': 'OJOJOSH',
-      'PASSWORD': 'Josh@97',
+      'USER': 'root',
+      'PASSWORD': 'Josh',
       'HOST': '127.0.0.1',
       'PORT': '3306',
       'OPTIONS': {
@@ -138,13 +138,26 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 REST_FRAMEWORK = {
     # Add code to assign default authentication classes
     'DEFAULT_AUTHENTICATOR_CLASSES': ['rest_framework.authentication.TokenAuthentication', 
-                                     'rest_framework.authentication.SessionAuthentication' 
+                                      'rest_framework.authentication.SessionAuthentication' 
     ],
     'DEFAULT_RENDERER_CLASSES': [
-        'rest_framework.renderers.JSONRenderer',
         'rest_framework.renderers.BrowsableAPIRenderer',
+        'rest_framework.renderers.JSONRenderer',
+       # 'rest_framework.filters.OrderingFilter',
+        #'rest_framework.filters.SearchFilter',
         #'rest_framework.renderers.XMLRenderer',
-    ]
+    ],
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+                                'PAGE_SIZE': 2
+    ,
+    'DEFAULT_THROTTLE_CLASSES': [
+         'rest_framework.throttling.AnonRateThrottle',
+         'rest_framework.throttling.UserRateThrottle'
+    ],
+    'DEFAULT_THROTTLE_RATES': {
+        'anon': '2/minute',
+        'user': '10/minute'
+    }
 
 }
 
